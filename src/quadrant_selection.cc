@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main(){
-    int a = 0, b = 0;
+    int a{}, b{};
     std::cin >> a >> b;
     if(a<0){
         if(b<0){

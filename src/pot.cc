@@ -2,8 +2,8 @@
 #include <cmath>
 
 int main(){
-    int in = 0; 
-    int result = 0;
+    int in{}; 
+    int result{};
 
     while(std::cin >> in){
         result += static_cast<int>(pow(in/10, in%10));
