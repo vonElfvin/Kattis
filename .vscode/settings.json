@@ -2,6 +2,7 @@
     "files.associations": {
         "xlocale": "cpp",
         "xiosbase": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string": "cpp"
     }
 }
