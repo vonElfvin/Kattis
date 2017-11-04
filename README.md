@@ -1,2 +1,2 @@
 # Kattis
-My solution to Kattis problems, written in Java/Python/c++
+My solution to Kattis problems, written in primarily c++
