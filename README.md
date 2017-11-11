@@ -1,2 +1,2 @@
 # Kattis
-My solution to Kattis problems, written in primarily c++
+My solutions to problems available on open.kattis.com/problems, written in c++
