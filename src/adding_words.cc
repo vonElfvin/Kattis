@@ -1,66 +1,60 @@
 #include <iostream>
-#include <map>
 #include <sstream>
-#include <algorithm>
-#include <vector>
-#include <iterator>
+#include <map>
 
 using namespace std;
 
 int main(){
-    string action{}, word{}, s{};
-    int value{};
-    map<string, int> word_value{};
-    map<int, string> value_word{};
-    while(1){
-        cin >> action;
-        cin.ignore();
-        if(action=="clear") break;
+    map<string, int> words;
+    map<int, string> values;
+    string action;
+    while(cin >> action){
         if(action=="def"){
-            cin >> word >> value;
-            if(value!=0){
-                word_value[word] = value;
-            }else{
-                word_value[word] = -1001;
+            string x;
+            int y;
+            cin >> x >> y;
+            if(words.find(x) != words.end()){
+                int old_value = words[x];
+                words.erase(x);
+                values.erase(old_value);
             }
-            value_word[value] = word;
-        }
-        if(action=="calc"){
-            getline(cin, s);
-            cout << s << ' ';
-            stringstream iss{s};
-            stringstream eos{};
-            vector<string> calc{};
-            string op{"+"};
-            int result{};
-            copy(istream_iterator<string>(iss), istream_iterator<string>(), back_inserter(calc));
-            for(int i{}; i<calc.size(); i++){
-                if(i%2==0){
-                    if(op=="+"){
-                        if(word_value[calc.at(i)]!=0){
-                            if(word_value[calc.at(i)]!=-1001) result+=word_value[calc.at(i)];
-                        }else{
-                            cout << "unknown";
-                            break;
-                        }
-                    }else if(op=="-"){
-                        if(word_value[calc.at(i)]!=0){
-                            if(word_value[calc.at(i)]!=-1001) result-=word_value[calc.at(i)];
-                        }else{
-                            cout << "unknown";
-                            break;
-                        }
+            words[x] = y;
+            values[y] = x;
+        }else if(action=="calc"){
+            string line, var;
+            char c;
+            int sum = 0;
+            int mult = 1;
+            string ans = "";
+
+            getline(cin, line);
+            istringstream iss(line.substr(1));
+
+            while(iss >> var){
+                if(words.find(var) == words.end()){
+                    ans = "unknown";
+                    break;
+                } else {
+                    sum += mult*words[var];
+                }
+                iss >> c;
+                if(c == '+'){
+                    mult = 1;
+                } else if(c == '-'){
+                    mult = -1;
+                } else { //=
+                    if(values.find(sum) != values.end()){
+                        ans = values[sum];
+                    } else {
+                        ans = "unknown";
                     }
-                }else{
-                    op = calc.at(i);
-                    if(op=="="){
-                        if(value_word[result].size()>0) cout << value_word[result];
-                        else cout << "unknown";
-                        break;
-                    } 
+                    break;
                 }
             }
-            cout << endl;
+            cout << line.substr(1) << " " << ans << endl;
+        }else if(action=="clear"){
+            words.clear();
+            values.clear();
         }
     }
 }
