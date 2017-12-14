@@ -42,7 +42,7 @@ int main(){
                     mult = 1;
                 } else if(c == '-'){
                     mult = -1;
-                } else { //=
+                } else {
                     if(values.find(sum) != values.end()){
                         ans = values[sum];
                     } else {
